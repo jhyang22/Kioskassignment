@@ -1,4 +1,4 @@
-package level1to5.level4;
+package level1to5.level4and5;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,8 @@ import java.util.List;
 // 메뉴 카테고리 이름을 반환하는 메서드가 구현되어야 한다
 public class Menu {
     private List<String> category = new ArrayList<>();
-    private List<MenuItem> menuItemList = new ArrayList<>();
+    // 리스트 안에도 리스트를 넣을 수 있다! 어차피 메모리 주소 가리키는거라 상관 없는듯?
+    private List<List<MenuItem>> menuItemList = new ArrayList<>();
     private List<MenuItem> burgerList = new ArrayList<>();
     private List<MenuItem> drinkList = new ArrayList<>();
     private List<MenuItem> sideList = new ArrayList<>();
@@ -35,13 +36,17 @@ public class Menu {
         sideList.add(new MenuItem("FrenchFries", 3.9 , "감튀 없인 못살아~"));
         sideList.add(new MenuItem("HashBrown", 2.9, "이거 햄버거에 넣어서 먹어보셨나요?"));
         sideList.add(new MenuItem("CheeseStick", 2.9, "늘어나는 치즈 길이가 무려!"));
+
+        menuItemList.add(burgerList);
+        menuItemList.add(drinkList);
+        menuItemList.add(sideList);
     }
 
     public List<String> getCategory() {
         return category;
     }
 
-    public List<MenuItem> getMenuItemList() {
+    public List<List<MenuItem>> getMenuItemList() {
         return menuItemList;
     }
 

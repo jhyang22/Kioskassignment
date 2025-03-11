@@ -1,4 +1,4 @@
-package level1to5.level4;
+package level1to5.level4and5;
 
 public class MenuItem {
     private String name;
