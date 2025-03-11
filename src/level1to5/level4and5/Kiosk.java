@@ -1,11 +1,13 @@
 package level1to5.level4and5;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
     //    private Menu menu = new Menu();
-    private Menu menu = new Menu();
+    private List<Menu> menu = new ArrayList<>();
     // 카테고리 리스트를 만들어야 하나?
 
     Scanner scanner = new Scanner(System.in);
@@ -27,10 +29,10 @@ public class Kiosk {
             System.out.println();
             System.out.println("---------------------------------------------MAIN MENU---------------------------------------------");
             int i = 1;
-            for (String a : menu.getCategory()) {
-                System.out.println(i + ". " + a);
-                i++;
-            }
+//            for (String a : menu.getCategory()) {
+//                System.out.println(i + ". " + a);
+//                i++;
+//            }
             System.out.println("0. 종료하기");
             System.out.println("----------------------------------------------------------------------------------------------------");
 
@@ -44,6 +46,8 @@ public class Kiosk {
                         break;
                     } else if (categoryChoose == 0) {
                         break Loop1;
+                    } else {
+                        throw new InputMismatchException();
                     }
                 } catch (InputMismatchException e) {
                     System.out.print("잘못 입력 하였습니다. 다시 선택해주세요: ");
@@ -56,28 +60,28 @@ public class Kiosk {
             switch (categoryChoose) {
                 case 1:
                     System.out.println("-----------------------------------------BURGER MENU-------------------------------------------");
-                    for (MenuItem a : menu.getBurgerList()) {
-                        System.out.println(i + ". " + a.getName() + "      |    W " + a.getPrice() + "   |   " + a.getExplanation());
-                        i++;
-                    }
+//                    for (MenuItem a : menu.getBurgerList()) {
+//                        System.out.println(i + ". " + a.getName() + "      |    W " + a.getPrice() + "   |   " + a.getExplanation());
+//                        i++;
+//                    }
                     System.out.println("0. 뒤로가기");
                     System.out.println("----------------------------------------------------------------------------------------------------");
                     break;
                 case 2:
                     System.out.println("-----------------------------------------DRINK MENU-------------------------------------------");
-                    for (MenuItem a : menu.getDrinkList()) {
-                        System.out.println(i + ". " + a.getName() + "      |    W " + a.getPrice() + "   |   " + a.getExplanation());
-                        i++;
-                    }
+//                    for (MenuItem a : menu.getDrinkList()) {
+//                        System.out.println(i + ". " + a.getName() + "      |    W " + a.getPrice() + "   |   " + a.getExplanation());
+//                        i++;
+//                    }
                     System.out.println("0. 뒤로가기");
                     System.out.println("----------------------------------------------------------------------------------------------------");
                     break;
                 case 3:
                     System.out.println("-----------------------------------------SIDE MENU-------------------------------------------");
-                    for (MenuItem a : menu.getSideList()) {
-                        System.out.println(i + ". " + a.getName() + "      |    W " + a.getPrice() + "   |   " + a.getExplanation());
-                        i++;
-                    }
+//                    for (MenuItem a : menu.getSideList()) {
+//                        System.out.println(i + ". " + a.getName() + "      |    W " + a.getPrice() + "   |   " + a.getExplanation());
+//                        i++;
+//                    }
                     System.out.println("0. 뒤로가기");
                     System.out.println("----------------------------------------------------------------------------------------------------");
                     break;
@@ -92,7 +96,7 @@ public class Kiosk {
                     if (menuChoose >= 1 && menuChoose <= 4) {
                         int menuChooseIndexNum = menuChoose - 1;
                         int categoryChooseIndexNum = categoryChoose - 1;
-                        System.out.println("선택한 메뉴 : " + menu.getMenuItemList().get(categoryChooseIndexNum).get(menuChooseIndexNum).getName() + ", " + menu.getMenuItemList().get(categoryChooseIndexNum).get(menuChooseIndexNum).getPrice() + "W, " + menu.getMenuItemList().get(categoryChooseIndexNum).get(menuChooseIndexNum).getExplanation());
+//                        System.out.println("선택한 메뉴 : " + menu.getMenuItemList().get(categoryChooseIndexNum).get(menuChooseIndexNum).getName() + ", " + menu.getMenuItemList().get(categoryChooseIndexNum).get(menuChooseIndexNum).getPrice() + "W, " + menu.getMenuItemList().get(categoryChooseIndexNum).get(menuChooseIndexNum).getExplanation());
                         System.out.println("----------------------------------------------------------------------------------------------------");
                         break;
                     } else if (menuChoose == 0) {
