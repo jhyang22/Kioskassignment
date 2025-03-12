@@ -14,7 +14,7 @@ public class Kiosk {
     }
 
     // menuList 초기화
-    public List<Menu> dataList() {
+    private List<Menu> dataList() {
         List<MenuItem> burgerList = new ArrayList<>();
         burgerList.add(new MenuItem("ClassicBurger", 7.9, "아시죠? 기본이 최곤거! 클래식 버거가 여기있습니다"));
         burgerList.add(new MenuItem("CheeseBurger", 10.9, "진한 육미가 느껴지는 소고기패티를 치즈가 감싸고 있는 치즈버거"));
