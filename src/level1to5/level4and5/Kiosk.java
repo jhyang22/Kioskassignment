@@ -6,38 +6,56 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
-    //    private Menu menu = new Menu();
-    private List<Menu> menu = new ArrayList<>();
-    // 카테고리 리스트를 만들어야 하나?
-
+    private List<Menu> menuList = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
+    public Kiosk() {
+        this.menuList = dataList();
+    }
 
-    // 먼저 카테고리 목록 나와야함
-    // 카테고리를 선택할 경우 그 카테고리에 해당하는 menuItemList가 나와야함
-    // -> 0번째 인덱스엔 categoryList, 1번째 인덱스엔 menuItemList를 넣을수 있나?
-    // -> 근데 그렇게 하면 안될것같은데.. 카테고리마다 지정을 해야할거같은데 어떻게하지
-    // 0을 누를경우 뒤로가기 혹은 종료가 나와야함
+    // menuList 초기화
+    public List<Menu> dataList() {
+        List<MenuItem> burgerList = new ArrayList<>();
+        burgerList.add(new MenuItem("ClassicBurger", 7.9, "아시죠? 기본이 최곤거! 클래식 버거가 여기있습니다"));
+        burgerList.add(new MenuItem("CheeseBurger", 10.9, "진한 육미가 느껴지는 소고기패티를 치즈가 감싸고 있는 치즈버거"));
+        burgerList.add(new MenuItem("BaconBurger", 12.9, "얇은 베이컨? ㄴㄴ 두께가 있어 식감이 좋은 진퉁 베이컨이 들어간 치즈버거"));
+        burgerList.add(new MenuItem("MegaBurger", 16.9, "햄최몇들 다 드루와"));
+
+        menuList.add(new Menu("Burgers", burgerList));
+
+        List<MenuItem> drinkList = new ArrayList<>();
+        drinkList.add(new MenuItem("CokeZero", 2.2, "코크 제로는 무설탕에.."));
+        drinkList.add(new MenuItem("CiderZero", 2.2, "제로 사이다는 더 짜릿해"));
+        drinkList.add(new MenuItem("DrPepper", 2.0, "닥페가 진리야"));
+        drinkList.add(new MenuItem("Water", 1.0, "물 없이는 살 수 없죠?"));
+        menuList.add(new Menu("Drinks", drinkList));
+
+        List<MenuItem> sideList = new ArrayList<>();
+        sideList.add(new MenuItem("FrenchFries", 3.9, "감튀 없인 못살아~"));
+        sideList.add(new MenuItem("HashBrown", 2.9, "이거 햄버거에 넣어서 먹어보셨나요?"));
+        sideList.add(new MenuItem("CheeseStick", 2.9, "늘어나는 치즈 길이가 무려!"));
+        menuList.add(new Menu("Sides", sideList));
+
+        return menuList;
+    }
+
     public void start() {
         int categoryChoose = -1;
         int menuChoose = -1;
 
-        // if categoryChoose == 0 이면 종료하기, menuChoose가 0이면 뒤로가기, 0~4 사이가 아니면 다시입력, 문자열은 try-catch로 다시입력
-        // 메인 메뉴판 출력
+        // 카테고리 출력
         Loop1:
         while (!(categoryChoose == 0)) {
             System.out.println();
             System.out.println("---------------------------------------------MAIN MENU---------------------------------------------");
-            int i = 1;
-//            for (String a : menu.getCategory()) {
-//                System.out.println(i + ". " + a);
-//                i++;
-//            }
+            for (int i = 0; i < menuList.size(); i++) {
+                System.out.println((i + 1) + ". " + menuList.get(i).getCategory());
+            }
+
             System.out.println("0. 종료하기");
             System.out.println("----------------------------------------------------------------------------------------------------");
 
-            // 처음 입력값을 받을 때 반복하여 올바른 입력 값을 받을 수 있도록 작성해보자
-            // 카테고리 고르기
+            // 카테고리 선택
             System.out.print("카테고리를 선택하세요: ");
             while (true) {
                 try {
@@ -55,54 +73,51 @@ public class Kiosk {
                 }
             }
 
-            // 카테고리 메뉴판 출력
-            i = 1;
+            // menuItemList 출력
             switch (categoryChoose) {
                 case 1:
                     System.out.println("-----------------------------------------BURGER MENU-------------------------------------------");
-//                    for (MenuItem a : menu.getBurgerList()) {
-//                        System.out.println(i + ". " + a.getName() + "      |    W " + a.getPrice() + "   |   " + a.getExplanation());
-//                        i++;
-//                    }
+                    for (int i = 0; i < menuList.get(0).getMenuItemList().size(); i++) {
+                        System.out.println((i + 1) + ". " + menuList.get(0).getMenuItemList().get(i).getName() + "      |    W " + menuList.get(0).getMenuItemList().get(i).getPrice() + "   |   " + menuList.get(0).getMenuItemList().get(i).getExplanation());
+                    }
                     System.out.println("0. 뒤로가기");
                     System.out.println("----------------------------------------------------------------------------------------------------");
                     break;
                 case 2:
                     System.out.println("-----------------------------------------DRINK MENU-------------------------------------------");
-//                    for (MenuItem a : menu.getDrinkList()) {
-//                        System.out.println(i + ". " + a.getName() + "      |    W " + a.getPrice() + "   |   " + a.getExplanation());
-//                        i++;
-//                    }
+                    for (int i = 1; i <= menuList.get(1).getMenuItemList().size(); i++) {
+                        System.out.println(i + ". " + menuList.get(1).getMenuItemList().get(i - 1).getName() + "      |    W " + menuList.get(0).getMenuItemList().get(i - 1).getPrice() + "   |   " + menuList.get(0).getMenuItemList().get(i - 1).getExplanation());
+                    }
                     System.out.println("0. 뒤로가기");
                     System.out.println("----------------------------------------------------------------------------------------------------");
                     break;
                 case 3:
                     System.out.println("-----------------------------------------SIDE MENU-------------------------------------------");
-//                    for (MenuItem a : menu.getSideList()) {
-//                        System.out.println(i + ". " + a.getName() + "      |    W " + a.getPrice() + "   |   " + a.getExplanation());
-//                        i++;
-//                    }
+                    for (int i = 1; i <= menuList.get(2).getMenuItemList().size(); i++) {
+                        System.out.println(i + ". " + menuList.get(2).getMenuItemList().get(i - 1).getName() + "      |    W " + menuList.get(0).getMenuItemList().get(i - 1).getPrice() + "   |   " + menuList.get(0).getMenuItemList().get(i - 1).getExplanation());
+                    }
                     System.out.println("0. 뒤로가기");
                     System.out.println("----------------------------------------------------------------------------------------------------");
                     break;
             }
 
-            // 메뉴 고르기
-            // 어차피 카테고리에서 걸러져서 case에 맞게 출력이 될거야. 근데 case마다 메뉴 수가 달라. switch문을 써야하나? 안쓰고는 못하나? - 해결! 리스트에 리스트 넣어서 get.get.get 했다
-            System.out.print("번호를 선택하세요: ");
+            // 메뉴 선택
+            System.out.print("메뉴를 선택하세요: ");
             while (!(menuChoose == 0)) {
                 try {
                     menuChoose = scanner.nextInt();
                     if (menuChoose >= 1 && menuChoose <= 4) {
-                        int menuChooseIndexNum = menuChoose - 1;
-                        int categoryChooseIndexNum = categoryChoose - 1;
-//                        System.out.println("선택한 메뉴 : " + menu.getMenuItemList().get(categoryChooseIndexNum).get(menuChooseIndexNum).getName() + ", " + menu.getMenuItemList().get(categoryChooseIndexNum).get(menuChooseIndexNum).getPrice() + "W, " + menu.getMenuItemList().get(categoryChooseIndexNum).get(menuChooseIndexNum).getExplanation());
+                        int menuChooseIndexNum = (menuChoose - 1);
+                        int categoryChooseIndexNum = (categoryChoose - 1);
+                        System.out.println("선택한 메뉴 : " + menuList.get(categoryChooseIndexNum).getMenuItemList().get(menuChooseIndexNum).getName() + ", " + menuList.get(categoryChooseIndexNum).getMenuItemList().get(menuChooseIndexNum).getPrice() + "W, " + menuList.get(categoryChooseIndexNum).getMenuItemList().get(menuChooseIndexNum).getExplanation());
                         System.out.println("----------------------------------------------------------------------------------------------------");
                         break;
                     } else if (menuChoose == 0) {
                         menuChoose = -1;
                         categoryChoose = -1;
                         break;
+                    } else {
+                        throw new InputMismatchException();
                     }
                 } catch (InputMismatchException e) {
                     System.out.print("번호를 잘못 입력하였습니다. 다시 선택해주세요: ");
@@ -114,12 +129,3 @@ public class Kiosk {
         System.out.println("프로그램을 종료합니다");
     }
 }
-
-// 그러니까 menuList.get카테고리.get그에 맞는 메뉴리스트.get속성; 이런식으로 들어가고싶은데 지금은 그렇게 안돼있음
-// 예를들어 menuList.getBurgers.getCokeZero는 안되게!
-// 이렇게 하려면 menuItemList 클래스를 또 생성해야하는건가? - 해결! 리스트에 리스트를 넣어서 해결!!
-
-// menuChoose 부분을 switch문 밖으로 빼도 되나?
-// 빼도 while if else 가능? - 일단 해결! 반복문에 이름 붙여서 break Loop1 해버렸다
-
-// while() 할 때 () 안에 조건을 덕지덕지 하지말고 boolean이나 if문을 따로 쓸까?
