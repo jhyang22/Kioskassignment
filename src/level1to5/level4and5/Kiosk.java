@@ -40,12 +40,20 @@ public class Kiosk {
     }
 
     // menuItemList 출력 메서드
-    private void menuChoice(int num) {
+    private void printMenuItemList(int num) {
         System.out.println("-----------------------------------------" + menuList.get(num-1).getCategory() + "MENU-------------------------------------------");
         for (int i = 0; i < menuList.get(num-1).getMenuItemList().size(); i++) {
             System.out.println((i + 1) + ". " + menuList.get(num-1).getMenuItemList().get(i).getName() + "      |    W " + menuList.get(num-1).getMenuItemList().get(i).getPrice() + "   |   " + menuList.get(num-1).getMenuItemList().get(i).getExplanation());
         }
         System.out.println("0. 뒤로가기");
+        System.out.println("----------------------------------------------------------------------------------------------------");
+    }
+
+    // 선택한 menuItem 출력 메서드
+    private void printChoiceMenu(int num1, int num2) {
+        int menuChooseIndexNum = (num1 - 1);
+        int categoryChooseIndexNum = (num2 - 1);
+        System.out.println("선택한 메뉴 : " + menuList.get(categoryChooseIndexNum).getMenuItemList().get(menuChooseIndexNum).getName() + ", " + menuList.get(categoryChooseIndexNum).getMenuItemList().get(menuChooseIndexNum).getPrice() + "W, " + menuList.get(categoryChooseIndexNum).getMenuItemList().get(menuChooseIndexNum).getExplanation());
         System.out.println("----------------------------------------------------------------------------------------------------");
     }
 
@@ -84,28 +92,15 @@ public class Kiosk {
             }
 
             // menuItemList 출력
-            switch (categoryChoose) {
-                case 1:
-                    menuChoice(categoryChoose);
-                    break;
-                case 2:
-                    menuChoice(categoryChoose);
-                    break;
-                case 3:
-                    menuChoice(categoryChoose);
-                    break;
-            }
+            printMenuItemList(categoryChoose);
 
             // 메뉴 선택
             System.out.print("메뉴를 선택하세요: ");
             while (!(menuChoose == 0)) {
                 try {
                     menuChoose = scanner.nextInt();
-                    if (menuChoose >= 1 && menuChoose <= 4) {
-                        int menuChooseIndexNum = (menuChoose - 1);
-                        int categoryChooseIndexNum = (categoryChoose - 1);
-                        System.out.println("선택한 메뉴 : " + menuList.get(categoryChooseIndexNum).getMenuItemList().get(menuChooseIndexNum).getName() + ", " + menuList.get(categoryChooseIndexNum).getMenuItemList().get(menuChooseIndexNum).getPrice() + "W, " + menuList.get(categoryChooseIndexNum).getMenuItemList().get(menuChooseIndexNum).getExplanation());
-                        System.out.println("----------------------------------------------------------------------------------------------------");
+                    if (menuChoose > 0 && menuChoose <= menuList.get(categoryChoose-1).getMenuItemList().size()) {
+                        printChoiceMenu(menuChoose, categoryChoose);
                         break;
                     } else if (menuChoose == 0) {
                         menuChoose = -1;
