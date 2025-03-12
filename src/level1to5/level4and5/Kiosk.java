@@ -39,6 +39,16 @@ public class Kiosk {
         return menuList;
     }
 
+    // menuItemList 출력 메서드
+    private void menuChoice(int num) {
+        System.out.println("-----------------------------------------" + menuList.get(num-1).getCategory() + "MENU-------------------------------------------");
+        for (int i = 0; i < menuList.get(num-1).getMenuItemList().size(); i++) {
+            System.out.println((i + 1) + ". " + menuList.get(num-1).getMenuItemList().get(i).getName() + "      |    W " + menuList.get(num-1).getMenuItemList().get(i).getPrice() + "   |   " + menuList.get(num-1).getMenuItemList().get(i).getExplanation());
+        }
+        System.out.println("0. 뒤로가기");
+        System.out.println("----------------------------------------------------------------------------------------------------");
+    }
+
     public void start() {
         int categoryChoose = -1;
         int menuChoose = -1;
@@ -76,28 +86,13 @@ public class Kiosk {
             // menuItemList 출력
             switch (categoryChoose) {
                 case 1:
-                    System.out.println("-----------------------------------------BURGER MENU-------------------------------------------");
-                    for (int i = 0; i < menuList.get(0).getMenuItemList().size(); i++) {
-                        System.out.println((i + 1) + ". " + menuList.get(0).getMenuItemList().get(i).getName() + "      |    W " + menuList.get(0).getMenuItemList().get(i).getPrice() + "   |   " + menuList.get(0).getMenuItemList().get(i).getExplanation());
-                    }
-                    System.out.println("0. 뒤로가기");
-                    System.out.println("----------------------------------------------------------------------------------------------------");
+                    menuChoice(categoryChoose);
                     break;
                 case 2:
-                    System.out.println("-----------------------------------------DRINK MENU-------------------------------------------");
-                    for (int i = 1; i <= menuList.get(1).getMenuItemList().size(); i++) {
-                        System.out.println(i + ". " + menuList.get(1).getMenuItemList().get(i - 1).getName() + "      |    W " + menuList.get(0).getMenuItemList().get(i - 1).getPrice() + "   |   " + menuList.get(0).getMenuItemList().get(i - 1).getExplanation());
-                    }
-                    System.out.println("0. 뒤로가기");
-                    System.out.println("----------------------------------------------------------------------------------------------------");
+                    menuChoice(categoryChoose);
                     break;
                 case 3:
-                    System.out.println("-----------------------------------------SIDE MENU-------------------------------------------");
-                    for (int i = 1; i <= menuList.get(2).getMenuItemList().size(); i++) {
-                        System.out.println(i + ". " + menuList.get(2).getMenuItemList().get(i - 1).getName() + "      |    W " + menuList.get(0).getMenuItemList().get(i - 1).getPrice() + "   |   " + menuList.get(0).getMenuItemList().get(i - 1).getExplanation());
-                    }
-                    System.out.println("0. 뒤로가기");
-                    System.out.println("----------------------------------------------------------------------------------------------------");
+                    menuChoice(categoryChoose);
                     break;
             }
 
