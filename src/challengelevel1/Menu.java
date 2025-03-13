@@ -7,9 +7,9 @@ public class Menu {
     private String category;
     private List<MenuItem> menuItemList = new ArrayList<>();
 
-    public Menu (String category, List<MenuItem> menuItemList) {
+    public Menu (String category, List<MenuItem> menuItem) {
         this.category = category;
-        this.menuItemList = menuItemList;
+        this.menuItemList = menuItem;
     }
 
     public String getCategory() {

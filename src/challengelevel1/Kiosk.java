@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Kiosk {
     private List<Menu> menuList = new ArrayList<>();
+    private Cart cart = new Cart();
     Scanner scanner = new Scanner(System.in);
 
     public Kiosk() {
@@ -41,9 +42,9 @@ public class Kiosk {
 
     // menuItemList 출력 메서드
     private void printMenuItemList(int num) {
-        System.out.println("-----------------------------------------" + menuList.get(num-1).getCategory() + "MENU-------------------------------------------");
-        for (int i = 0; i < menuList.get(num-1).getMenuItemList().size(); i++) {
-            System.out.println((i + 1) + ". " + menuList.get(num-1).getMenuItemList().get(i).getName() + "      |    W " + menuList.get(num-1).getMenuItemList().get(i).getPrice() + "   |   " + menuList.get(num-1).getMenuItemList().get(i).getExplanation());
+        System.out.println("-----------------------------------------" + menuList.get(num - 1).getCategory() + "MENU-------------------------------------------");
+        for (int i = 0; i < menuList.get(num - 1).getMenuItemList().size(); i++) {
+            System.out.println((i + 1) + ". " + menuList.get(num - 1).getMenuItemList().get(i).getName() + "      |    W " + menuList.get(num - 1).getMenuItemList().get(i).getPrice() + "   |   " + menuList.get(num - 1).getMenuItemList().get(i).getExplanation());
         }
         System.out.println("0. 뒤로가기");
         System.out.println("----------------------------------------------------------------------------------------------------");
@@ -61,9 +62,10 @@ public class Kiosk {
         int categoryChoose = -1;
         int menuChoose = -1;
 
-        // 카테고리 출력
+        // 카테고리 선택에서 0을 입력 할 경우 가장 상위의 while을 break하기 위해 이름 붙임
         Loop1:
         while (!(categoryChoose == 0)) {
+            // 카테고리 출력
             System.out.println();
             System.out.println("---------------------------------------------MAIN MENU---------------------------------------------");
             for (int i = 0; i < menuList.size(); i++) {
@@ -99,8 +101,10 @@ public class Kiosk {
             while (!(menuChoose == 0)) {
                 try {
                     menuChoose = scanner.nextInt();
-                    if (menuChoose > 0 && menuChoose <= menuList.get(categoryChoose-1).getMenuItemList().size()) {
+                    if (menuChoose > 0 && menuChoose <= menuList.get(categoryChoose - 1).getMenuItemList().size()) {
                         printChoiceMenu(menuChoose, categoryChoose);
+                        // 장바구니 추가 여부
+                        cart.setCart(menuList.get(categoryChoose - 1).getMenuItemList().get(menuChoose - 1));
                         break;
                     } else if (menuChoose == 0) {
                         menuChoose = -1;
@@ -114,6 +118,7 @@ public class Kiosk {
                     scanner.nextLine();
                 }
             }
+            cart.getShoppingList();
             System.out.println("메인 메뉴로 돌아갑니다.");
         }
         System.out.println("프로그램을 종료합니다");
