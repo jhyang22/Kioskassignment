@@ -52,7 +52,10 @@ public class CartMap {
             i++;
             System.out.println(i + ". " + a.getKey().getName() + " | " + a.getKey().getPrice() + " | " + a.getValue());
         }
-        System.out.println("총 금액은 ");
+        for (Map.Entry<MenuItem, Integer> a : cartMap.entrySet()) {
+            double totalPrice = a.getKey().getPrice() * countItem(a.getKey());
+            System.out.println("총 금액은 " + totalPrice + "입니다.");
+        }
         System.out.println("----------------------------------------------------------------------------------------------------");
     }
 
