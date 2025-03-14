@@ -26,9 +26,4 @@ public class MenuItem {
     public String getExplanation() {
         return explanation;
     }
-
-//    @Override
-//    public String toString() {
-//        return name + " " + price;
-//    }
 }

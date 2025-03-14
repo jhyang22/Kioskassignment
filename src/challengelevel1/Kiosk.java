@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 public class Kiosk {
     private List<Menu> menuList = new ArrayList<>();
-    private Cart cart = new Cart();
-    private CartMap cartMap = new CartMap();
+    private CartMap cart = new CartMap();
     Scanner scanner = new Scanner(System.in);
 
     public Kiosk() {
@@ -60,7 +59,7 @@ public class Kiosk {
 
     // 카테고리 메뉴 출력 - 장바구니 있을 경우와 없을 경우 다르게 출력
     private void printCategoryMenu () {
-        if (cartMap.checkCartMap()) {
+        if (cart.checkCartMap()) {
             System.out.println();
             System.out.println("---------------------------------------------MAIN MENU---------------------------------------------");
             for (int i = 0; i < menuList.size(); i++) {
@@ -83,7 +82,9 @@ public class Kiosk {
         }
     }
 
+    // 키오스크 시작
     public void start() {
+        // while()의 조건에 사용하기 위해 미리 음수로 초기화하였음
         int categoryChoose = -1;
         int menuChoose = -1;
 
@@ -91,14 +92,6 @@ public class Kiosk {
         Loop1:
         while (!(categoryChoose == 0)) {
             // 카테고리 출력
-//            System.out.println();
-//            System.out.println("---------------------------------------------MAIN MENU---------------------------------------------");
-//            for (int i = 0; i < menuList.size(); i++) {
-//                System.out.println((i + 1) + ". " + menuList.get(i).getCategory());
-//            }
-//
-//            System.out.println("0. 종료하기");
-//            System.out.println("----------------------------------------------------------------------------------------------------");
             printCategoryMenu();
 
             // 카테고리 선택
@@ -130,8 +123,7 @@ public class Kiosk {
                     if (menuChoose > 0 && menuChoose <= menuList.get(categoryChoose - 1).getMenuItemList().size()) {
                         printChoiceMenu(menuChoose, categoryChoose);
                         // 장바구니 추가 여부
-//                        cart.setCartItemList(menuList.get(categoryChoose - 1).getMenuItemList().get(menuChoose - 1));
-                        cartMap.setCartMap(menuList.get(categoryChoose - 1).getMenuItemList().get(menuChoose - 1));
+                        cart.setCartMap(menuList.get(categoryChoose - 1).getMenuItemList().get(menuChoose - 1));
                         break;
                     } else if (menuChoose == 0) {
                         menuChoose = -1;
@@ -146,10 +138,10 @@ public class Kiosk {
                 }
             }
             // 장바구니 보여주기
-//            cart.getCartItemList();
-            cartMap.getCartMap();
+            cart.getCartMap();
+
             // 결제여부
-//            cart.pay();
+
 
             System.out.println("메인 메뉴로 돌아갑니다.");
         }

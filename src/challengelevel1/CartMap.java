@@ -59,4 +59,10 @@ public class CartMap {
             return false;
         }
     }
+
+    // 장바구니 제거
+
+
+    // 결제
+
 }
