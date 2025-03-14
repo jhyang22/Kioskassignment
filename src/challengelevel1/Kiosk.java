@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Kiosk {
     private List<Menu> menuList = new ArrayList<>();
     private Cart cart = new Cart();
+    private CartMap cartMap = new CartMap();
     Scanner scanner = new Scanner(System.in);
 
     public Kiosk() {
@@ -21,7 +22,6 @@ public class Kiosk {
         burgerList.add(new MenuItem("CheeseBurger", 10.9, "진한 육미가 느껴지는 소고기패티를 치즈가 감싸고 있는 치즈버거"));
         burgerList.add(new MenuItem("BaconBurger", 12.9, "얇은 베이컨? ㄴㄴ 두께가 있어 식감이 좋은 진퉁 베이컨이 들어간 치즈버거"));
         burgerList.add(new MenuItem("MegaBurger", 16.9, "햄최몇들 다 드루와"));
-
         menuList.add(new Menu("Burgers", burgerList));
 
         List<MenuItem> drinkList = new ArrayList<>();
@@ -58,14 +58,9 @@ public class Kiosk {
         System.out.println("----------------------------------------------------------------------------------------------------");
     }
 
-    public void start() {
-        int categoryChoose = -1;
-        int menuChoose = -1;
-
-        // 카테고리 선택에서 0을 입력 할 경우 가장 상위의 while을 break하기 위해 이름 붙임
-        Loop1:
-        while (!(categoryChoose == 0)) {
-            // 카테고리 출력
+    // 카테고리 메뉴 출력 - 장바구니 있을 경우와 없을 경우 다르게 출력
+    private void printCategoryMenu () {
+        if (cartMap.checkCartMap()) {
             System.out.println();
             System.out.println("---------------------------------------------MAIN MENU---------------------------------------------");
             for (int i = 0; i < menuList.size(); i++) {
@@ -74,13 +69,44 @@ public class Kiosk {
 
             System.out.println("0. 종료하기");
             System.out.println("----------------------------------------------------------------------------------------------------");
+        } else {
+            System.out.println();
+            System.out.println("---------------------------------------------MAIN MENU---------------------------------------------");
+            for (int i = 0; i < menuList.size(); i++) {
+                System.out.println((i + 1) + ". " + menuList.get(i).getCategory());
+            }
+            System.out.println("---------------------------------------------ORDER MENU---------------------------------------------");
+            System.out.println("4. Orders");
+            System.out.println("5. Cancel");
+            System.out.println("0. 종료하기");
+            System.out.println("----------------------------------------------------------------------------------------------------");
+        }
+    }
+
+    public void start() {
+        int categoryChoose = -1;
+        int menuChoose = -1;
+
+        // 카테고리 선택에서 0을 입력 할 경우 가장 상위의 while을 break하기 위해 이름 붙임
+        Loop1:
+        while (!(categoryChoose == 0)) {
+            // 카테고리 출력
+//            System.out.println();
+//            System.out.println("---------------------------------------------MAIN MENU---------------------------------------------");
+//            for (int i = 0; i < menuList.size(); i++) {
+//                System.out.println((i + 1) + ". " + menuList.get(i).getCategory());
+//            }
+//
+//            System.out.println("0. 종료하기");
+//            System.out.println("----------------------------------------------------------------------------------------------------");
+            printCategoryMenu();
 
             // 카테고리 선택
             System.out.print("카테고리를 선택하세요: ");
             while (true) {
                 try {
                     categoryChoose = scanner.nextInt();
-                    if (categoryChoose >= 1 && categoryChoose <= 3) {
+                    if (categoryChoose >= 1 && categoryChoose <= menuList.size()) {
                         break;
                     } else if (categoryChoose == 0) {
                         break Loop1;
@@ -104,7 +130,8 @@ public class Kiosk {
                     if (menuChoose > 0 && menuChoose <= menuList.get(categoryChoose - 1).getMenuItemList().size()) {
                         printChoiceMenu(menuChoose, categoryChoose);
                         // 장바구니 추가 여부
-                        cart.setCart(menuList.get(categoryChoose - 1).getMenuItemList().get(menuChoose - 1));
+//                        cart.setCartItemList(menuList.get(categoryChoose - 1).getMenuItemList().get(menuChoose - 1));
+                        cartMap.setCartMap(menuList.get(categoryChoose - 1).getMenuItemList().get(menuChoose - 1));
                         break;
                     } else if (menuChoose == 0) {
                         menuChoose = -1;
@@ -118,7 +145,12 @@ public class Kiosk {
                     scanner.nextLine();
                 }
             }
-            cart.getShoppingList();
+            // 장바구니 보여주기
+//            cart.getCartItemList();
+            cartMap.getCartMap();
+            // 결제여부
+//            cart.pay();
+
             System.out.println("메인 메뉴로 돌아갑니다.");
         }
         System.out.println("프로그램을 종료합니다");
