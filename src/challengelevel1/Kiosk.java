@@ -81,6 +81,11 @@ public class Kiosk {
         }
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     // 키오스크 시작
     public void start() {
         // while()의 조건에 사용하기 위해 미리 음수로 초기화하였음
@@ -102,7 +107,8 @@ public class Kiosk {
                         // 장바구니 보여주기
                         cart.getCartMap();
                         // 결제 여부
-
+                        cart.pay();
+                        break;
                     } else if (categoryChoose >= 1 && categoryChoose <= menuList.size()) {
                         break;
                     } else if (categoryChoose == 0) {
@@ -116,32 +122,33 @@ public class Kiosk {
                 }
             }
 
-            // menuItemList 출력
-            printMenuItemList(categoryChoose);
+            if(!(categoryChoose == menuList.size() + 1)) {
+                // menuItemList 출력
+                printMenuItemList(categoryChoose);
 
-            // 메뉴 선택
-            System.out.print("메뉴를 선택하세요: ");
-            while (!(menuChoose == 0)) {
-                try {
-                    menuChoose = scanner.nextInt();
-                    if (menuChoose > 0 && menuChoose <= menuList.get(categoryChoose - 1).getMenuItemList().size()) {
-                        printChoiceMenu(menuChoose, categoryChoose);
-                        // 장바구니 추가 여부
-                        cart.setCartMap(menuList.get(categoryChoose - 1).getMenuItemList().get(menuChoose - 1));
-                        break;
-                    } else if (menuChoose == 0) {
-                        menuChoose = -1;
-                        categoryChoose = -1;
-                        break;
-                    } else {
-                        throw new InputMismatchException();
+                // 메뉴 선택
+                System.out.print("메뉴를 선택하세요: ");
+                while (!(menuChoose == 0)) {
+                    try {
+                        menuChoose = scanner.nextInt();
+                        if (menuChoose > 0 && menuChoose <= menuList.get(categoryChoose - 1).getMenuItemList().size()) {
+                            printChoiceMenu(menuChoose, categoryChoose);
+                            // 장바구니 추가 여부
+                            cart.setCartMap(menuList.get(categoryChoose - 1).getMenuItemList().get(menuChoose - 1));
+                            break;
+                        } else if (menuChoose == 0) {
+                            menuChoose = -1;
+                            categoryChoose = -1;
+                            break;
+                        } else {
+                            throw new InputMismatchException();
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.print("번호를 잘못 입력하였습니다. 다시 선택해주세요: ");
+                        scanner.nextLine();
                     }
-                } catch (InputMismatchException e) {
-                    System.out.print("번호를 잘못 입력하였습니다. 다시 선택해주세요: ");
-                    scanner.nextLine();
                 }
             }
-
 
             // 장바구니 삭제
 //            cart.getCartMap();
@@ -152,8 +159,6 @@ public class Kiosk {
 //            if (removeCartName > 0 && removeCartName < cart.cartSize()) {
 //                cart.removeItem(removeCartName);
 //            }
-
-            // 결제여부
 
 
             System.out.println("메인 메뉴로 돌아갑니다.");

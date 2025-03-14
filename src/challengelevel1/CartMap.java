@@ -48,15 +48,19 @@ public class CartMap {
     public void getCartMap() {
         System.out.println("현재 장바구니 목록");
         int i = 0;
+        double totalPrice = 0;
         for (Map.Entry<MenuItem, Integer> a : cartMap.entrySet()) {
             i++;
             System.out.println(i + ". " + a.getKey().getName() + " | " + a.getKey().getPrice() + " | " + a.getValue());
+            totalPrice += a.getKey().getPrice() * a.getValue();
         }
-        for (Map.Entry<MenuItem, Integer> a : cartMap.entrySet()) {
-            double totalPrice = a.getKey().getPrice() * countItem(a.getKey());
-            System.out.println("총 금액은 " + totalPrice + "입니다.");
-        }
+        System.out.print("총 가격은 : W ");
+        System.out.printf("%.1f", totalPrice);
+        System.out.println("입니다.");
+        System.out.println("결제 하시겠습니까?");
+        System.out.print("Yes / No : ");
         System.out.println("----------------------------------------------------------------------------------------------------");
+
     }
 
     // 장바구니 비어있는지 확인
@@ -91,7 +95,19 @@ public class CartMap {
 
     // 결제
     public void pay() {
-        System.out.println("주문이 완료되었습니다.");
-        removeItem();
+        while(true) {
+            String answer = scanner.next();
+            if ("yes".equalsIgnoreCase(answer)) {
+                System.out.println("주문이 완료되었습니다.");
+                removeItem();
+                break;
+            } else if ("no".equalsIgnoreCase(answer)) {
+                System.out.println("주문을 계속합니다.");
+                break;
+            } else {
+                System.out.println("입력이 정확하지 않습니다. 다시 입력해주세요");
+                scanner.nextLine();
+            }
+        }
     }
 }
