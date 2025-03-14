@@ -58,7 +58,7 @@ public class Kiosk {
     }
 
     // 카테고리 메뉴 출력 - 장바구니 있을 경우와 없을 경우 다르게 출력
-    private void printCategoryMenu () {
+    private void printCategoryMenu() {
         if (cart.checkCartMap()) {
             System.out.println();
             System.out.println("---------------------------------------------MAIN MENU---------------------------------------------");
@@ -75,8 +75,7 @@ public class Kiosk {
                 System.out.println((i + 1) + ". " + menuList.get(i).getCategory());
             }
             System.out.println("---------------------------------------------ORDER MENU---------------------------------------------");
-            System.out.println("4. Orders");
-            System.out.println("5. Cancel");
+            System.out.println(menuList.size() + 1 + ". 장바구니");
             System.out.println("0. 종료하기");
             System.out.println("----------------------------------------------------------------------------------------------------");
         }
@@ -99,7 +98,12 @@ public class Kiosk {
             while (true) {
                 try {
                     categoryChoose = scanner.nextInt();
-                    if (categoryChoose >= 1 && categoryChoose <= menuList.size()) {
+                    if ((!cart.checkCartMap()) && (categoryChoose == menuList.size() + 1)) {
+                        // 장바구니 보여주기
+                        cart.getCartMap();
+                        // 결제 여부
+
+                    } else if (categoryChoose >= 1 && categoryChoose <= menuList.size()) {
                         break;
                     } else if (categoryChoose == 0) {
                         break Loop1;
@@ -137,8 +141,17 @@ public class Kiosk {
                     scanner.nextLine();
                 }
             }
-            // 장바구니 보여주기
-            cart.getCartMap();
+
+
+            // 장바구니 삭제
+//            cart.getCartMap();
+//            System.out.println("0. 취소하기");
+//            System.out.println("----------------------------------------------------------------------------------------------------");
+//            System.out.print("삭제할 품목이름을 입력하세요: ");
+//            String removeCartName = scanner.nextLine();
+//            if (removeCartName > 0 && removeCartName < cart.cartSize()) {
+//                cart.removeItem(removeCartName);
+//            }
 
             // 결제여부
 
