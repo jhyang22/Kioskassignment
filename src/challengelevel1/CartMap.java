@@ -48,14 +48,15 @@ public class CartMap {
     public void getCartMap() {
         System.out.println("현재 장바구니 목록");
         int i = 0;
+        double totalPrice = 0;
         for (Map.Entry<MenuItem, Integer> a : cartMap.entrySet()) {
             i++;
             System.out.println(i + ". " + a.getKey().getName() + " | " + a.getKey().getPrice() + " | " + a.getValue());
+            totalPrice += a.getKey().getPrice() * a.getValue();
         }
-        for (Map.Entry<MenuItem, Integer> a : cartMap.entrySet()) {
-            double totalPrice = a.getKey().getPrice() * countItem(a.getKey());
-            System.out.println("총 금액은 " + totalPrice + "입니다.");
-        }
+        System.out.print("총 가격은 : W ");
+        System.out.printf("%.1f", totalPrice);
+        System.out.println("입니다.");
         System.out.println("----------------------------------------------------------------------------------------------------");
     }
 

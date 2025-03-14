@@ -81,6 +81,11 @@ public class Kiosk {
         }
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     // 키오스크 시작
     public void start() {
         // while()의 조건에 사용하기 위해 미리 음수로 초기화하였음
